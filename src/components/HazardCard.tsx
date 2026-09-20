@@ -30,32 +30,32 @@ export const HazardCard: React.FC<HazardCardProps> = ({
       onClick={() => onSelect && onSelect(hazard.id)}
       className={`group relative rounded-xl transition-all duration-200 p-4 sm:p-5 border cursor-pointer ${
         hazard.fixed
-          ? 'bg-[#0b0d11]/60 border-white/[0.04] opacity-70'
+          ? 'bg-[#0a0a0b]/60 border-white/[0.04] opacity-70'
           : isSelected
-          ? 'bg-[#11141a] border-[#d4ff00]/70 shadow-[0_0_24px_rgba(212,255,0,0.15)] ring-1 ring-[#d4ff00]/40'
-          : 'bg-[#0e1014] border-white/[0.08] hover:border-white/20 hover:bg-[#11141a]'
+          ? 'bg-[#111113] border-[#c4ff00]/60 shadow-[0_0_24px_rgba(196,255,0,0.15)] ring-1 ring-[#c4ff00]/30'
+          : 'bg-[#111113] border-white/[0.05] hover:border-white/12 hover:bg-[#18181b]'
       } ${className}`}
     >
       {/* Top row: Number, Severity Badge, Category, Confidence */}
       <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
         <div className="flex items-center gap-2">
-          <span className="w-5 h-5 rounded bg-[#181b22] text-[#d4ff00] border border-white/10 font-tech font-bold text-[10px] flex items-center justify-center">
+          <span className="w-5 h-5 rounded bg-[#18181b] text-[#c4ff00] border border-white/8 font-tech font-bold text-[10px] flex items-center justify-center">
             {index + 1}
           </span>
           <SeverityBadge severity={hazard.severity} size="sm" />
-          <span className="text-[10px] px-2 py-0.5 rounded bg-[#181b22] text-zinc-300 border border-white/10 font-tech">
+          <span className="text-[10px] px-2 py-0.5 rounded bg-[#18181b] text-zinc-300 border border-white/8 font-tech">
             {hazard.category}
           </span>
         </div>
 
         <div className="flex items-center gap-1 text-[11px] text-zinc-400 font-tech">
           <span>CONF:</span>
-          <span className="text-[#d4ff00] font-bold">{confidencePercent}%</span>
+          <span className="text-[#c4ff00] font-bold">{confidencePercent}%</span>
         </div>
       </div>
 
       {/* Hazard Title */}
-      <h3 className="text-sm sm:text-base font-bold text-white group-hover:text-[#d4ff00] transition-colors mb-1">
+      <h3 className="text-sm sm:text-base font-bold text-white group-hover:text-[#c4ff00] transition-colors mb-1">
         {hazard.title}
       </h3>
 
@@ -65,8 +65,8 @@ export const HazardCard: React.FC<HazardCardProps> = ({
       </p>
 
       {/* Recommendation Snippet Box */}
-      <div className="p-3 rounded-lg bg-[#07080a] border border-white/[0.06] mb-3.5 flex items-start gap-2.5">
-        <Wrench size={13} className="text-[#d4ff00] shrink-0 mt-0.5" />
+      <div className="p-3 rounded-lg bg-[#0a0a0b] border border-white/[0.05] mb-3.5 flex items-start gap-2.5">
+        <Wrench size={13} className="text-[#c4ff00] shrink-0 mt-0.5" />
         <div className="text-xs">
           <span className="text-[10px] uppercase font-tech text-zinc-400 font-bold block mb-0.5">
             CORRECTIVE ACTION
@@ -78,7 +78,7 @@ export const HazardCard: React.FC<HazardCardProps> = ({
       </div>
 
       {/* Bottom Actions Row */}
-      <div className="flex items-center justify-between pt-2 border-t border-white/[0.06] text-xs">
+      <div className="flex items-center justify-between pt-2 border-t border-white/[0.05] text-xs">
         {/* Toggle Fixed */}
         <button
           type="button"
@@ -88,8 +88,8 @@ export const HazardCard: React.FC<HazardCardProps> = ({
           }}
           className={`flex items-center gap-1.5 px-2.5 py-1 rounded font-tech text-[11px] transition cursor-pointer ${
             hazard.fixed
-              ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 font-bold'
-              : 'bg-[#181b22] text-zinc-400 hover:text-white border border-white/10'
+              ? 'bg-emerald-500/8 text-emerald-400 border border-emerald-500/15 font-bold'
+              : 'bg-[#18181b] text-zinc-400 hover:text-white border border-white/8'
           }`}
         >
           <CheckCircle size={12} className={hazard.fixed ? 'text-emerald-400' : 'text-zinc-500'} />
@@ -103,7 +103,7 @@ export const HazardCard: React.FC<HazardCardProps> = ({
             e.stopPropagation();
             onViewDetails && onViewDetails(hazard.id);
           }}
-          className="flex items-center gap-1 text-[#d4ff00] hover:underline font-tech font-bold text-[11px] px-1 py-1 transition group-hover:translate-x-0.5"
+          className="flex items-center gap-1 text-[#c4ff00] hover:underline font-tech font-bold text-[11px] px-1 py-1 transition group-hover:translate-x-0.5"
         >
           <span>TELEMETRY</span>
           <ArrowRight size={11} />

@@ -269,7 +269,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#07080a] text-[#f4f4f5] flex flex-col font-sans selection:bg-[#d4ff00] selection:text-[#07080a]">
+    <div className="min-h-screen bg-[#0a0a0b] text-[#fafafa] flex flex-col font-sans selection:bg-[#c4ff00] selection:text-[#0a0a0b]">
       {/* Sticky Top Navbar */}
       <Navbar
         currentRoute={currentRoute}
@@ -279,8 +279,8 @@ export default function App() {
 
       {/* Demo Notification Toast */}
       {demoNotice && (
-        <div className="fixed bottom-6 right-6 z-50 bg-[#0e1014] text-white text-xs font-tech px-4 py-2.5 rounded-xl border border-[#d4ff00]/40 shadow-2xl flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-[#d4ff00] animate-pulse" />
+        <div className="fixed bottom-6 right-6 z-50 bg-[#111113] text-white text-xs font-tech px-4 py-2.5 rounded-xl border border-[#c4ff00]/40 shadow-2xl flex items-center gap-2">
+          <span className="w-2 h-2 rounded-full bg-[#c4ff00] animate-pulse" />
           <span>{demoNotice}</span>
         </div>
       )}
@@ -367,10 +367,10 @@ export default function App() {
       </main>
 
       {/* Global Clean Footer */}
-      <footer className="border-t border-white/[0.06] bg-[#07080a] py-8 px-4 text-center text-xs text-zinc-400">
+      <footer className="border-t border-white/[0.06] bg-[#0a0a0b] py-8 px-4 text-center text-xs text-zinc-400">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2 font-tech">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#d4ff00]" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#c4ff00]" />
             <span className="font-bold text-white tracking-tight">HOMEGUARD AI</span>
             <span className="text-zinc-600">//</span>
             <span className="text-zinc-400">PREEMPTIVE SPATIAL RISK DETECTION</span>

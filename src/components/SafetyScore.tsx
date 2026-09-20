@@ -16,29 +16,29 @@ export const SafetyScore: React.FC<SafetyScoreProps> = ({
   const clampedScore = Math.max(0, Math.min(100, Math.round(score)));
 
   // Determine grade & color matching the palette:
-  // Background near black, Primary accent soft electric lime (#d4ff00)
-  // High risk: muted red (#ef4444), Medium risk: amber (#f59e0b), Low risk: soft electric lime (#d4ff00)
-  let scoreColor = 'text-[#d4ff00]';
-  let strokeColor = '#d4ff00';
+  // Background near black, Primary accent electric lime (#c4ff00)
+  // High risk: muted red (#ef4444), Medium risk: amber (#f59e0b), Low risk: electric lime (#c4ff00)
+  let scoreColor = 'text-[#c4ff00]';
+  let strokeColor = '#c4ff00';
   let statusText = 'Optimal Clearance';
-  let statusBg = 'bg-[#d4ff00]/10 text-[#d4ff00] border-[#d4ff00]/30';
+  let statusBg = 'bg-[#c4ff00]/8 text-[#c4ff00] border-[#c4ff00]/15';
 
   if (clampedScore < 60) {
     scoreColor = 'text-red-400';
     strokeColor = '#ef4444';
     statusText = 'Attention Required';
-    statusBg = 'bg-red-500/10 text-red-400 border-red-500/30';
+    statusBg = 'bg-red-500/8 text-red-400 border-red-500/15';
   } else if (clampedScore < 80) {
     scoreColor = 'text-amber-400';
     strokeColor = '#f59e0b';
     statusText = 'Moderate Vulnerability';
-    statusBg = 'bg-amber-500/10 text-amber-400 border-amber-500/30';
+    statusBg = 'bg-amber-500/8 text-amber-400 border-amber-500/15';
   }
 
   const dimensions = {
-    sm: { radius: 30, strokeWidth: 5, size: 74, textSize: 'text-xl' },
-    md: { radius: 50, strokeWidth: 6, size: 120, textSize: 'text-3xl' },
-    lg: { radius: 72, strokeWidth: 8, size: 168, textSize: 'text-5xl' },
+    sm: { radius: 32, strokeWidth: 4, size: 80, textSize: 'text-2xl' },
+    md: { radius: 52, strokeWidth: 5, size: 128, textSize: 'text-4xl' },
+    lg: { radius: 76, strokeWidth: 6, size: 176, textSize: 'text-6xl' },
   }[size];
 
   const circumference = 2 * Math.PI * dimensions.radius;
@@ -62,7 +62,7 @@ export const SafetyScore: React.FC<SafetyScoreProps> = ({
             r={dimensions.radius}
             stroke="currentColor"
             strokeWidth={dimensions.strokeWidth}
-            className="text-[#181b22]"
+            className="text-[#18181b]"
             fill="transparent"
           />
           {/* Progress fill */}
@@ -85,20 +85,20 @@ export const SafetyScore: React.FC<SafetyScoreProps> = ({
           <span className={`font-extrabold tracking-tight ${dimensions.textSize} ${scoreColor}`}>
             {clampedScore}
           </span>
-          <span className="text-[10px] uppercase tracking-wider text-zinc-500 font-medium">
+          <span className="text-xs uppercase tracking-wider text-zinc-500 font-medium">
             / 100
           </span>
         </div>
       </div>
 
-      <div className="mt-3 flex flex-col items-center font-tech">
+      <div className="mt-4 flex flex-col items-center font-tech">
         <span
-          className={`px-2.5 py-0.5 rounded text-[10px] uppercase tracking-wider font-bold border ${statusBg}`}
+          className={`px-3 py-1 rounded text-[10px] uppercase tracking-wider font-bold border ${statusBg}`}
         >
           {statusText}
         </span>
         {showSubtitle && (
-          <p className="text-[11px] text-zinc-400 mt-1.5 max-w-[200px] leading-tight font-sans">
+          <p className="text-[11px] text-zinc-400 mt-2 max-w-[220px] leading-tight font-sans">
             AI visual screening benchmark
           </p>
         )}

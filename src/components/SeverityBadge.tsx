@@ -36,18 +36,18 @@ export const SeverityBadge: React.FC<SeverityBadgeProps> = ({
     },
     low: {
       label: 'Low Risk',
-      bgColor: 'bg-[#d4ff00]/10',
-      textColor: 'text-[#d4ff00]',
-      borderColor: 'border-[#d4ff00]/30',
-      dotColor: 'bg-[#d4ff00]',
+      bgColor: 'bg-[#c4ff00]/8',
+      textColor: 'text-[#c4ff00]',
+      borderColor: 'border-[#c4ff00]/15',
+      dotColor: 'bg-[#c4ff00]',
       Icon: CheckCircle2,
     },
   }[norm] || {
     label: 'Low Risk',
-    bgColor: 'bg-[#d4ff00]/10',
-    textColor: 'text-[#d4ff00]',
-    borderColor: 'border-[#d4ff00]/30',
-    dotColor: 'bg-[#d4ff00]',
+    bgColor: 'bg-[#c4ff00]/8',
+    textColor: 'text-[#c4ff00]',
+    borderColor: 'border-[#c4ff00]/15',
+    dotColor: 'bg-[#c4ff00]',
     Icon: CheckCircle2,
   };
 

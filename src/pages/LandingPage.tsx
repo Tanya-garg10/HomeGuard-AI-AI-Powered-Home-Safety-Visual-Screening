@@ -126,56 +126,56 @@ export const LandingPage: React.FC<LandingPageProps> = ({
   const currentHero = heroRooms[activeTab];
 
   return (
-    <div className="w-full bg-[#07080a] text-[#f4f4f5] min-h-screen relative overflow-hidden bg-hud-grid selection:bg-[#d4ff00] selection:text-black">
+    <div className="w-full bg-[#0a0a0b] text-[#fafafa] min-h-screen relative overflow-hidden bg-hud-grid bg-radial-gradient selection:bg-[#c4ff00] selection:text-black">
       {/* Editorial Decorative Ambient Top Glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[320px] bg-[#d4ff00]/[0.025] blur-[140px] pointer-events-none rounded-full" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[400px] bg-[#c4ff00]/[0.02] blur-[160px] pointer-events-none rounded-full" />
 
       {/* Hero Section Container */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 sm:pt-14 pb-16">
         {/* Editorial Top Technical Bar */}
-        <div className="flex items-center justify-between border-b border-white/[0.07] pb-4 mb-8 sm:mb-12 text-xs font-tech text-zinc-400">
+        <div className="flex items-center justify-between border-b border-white/[0.05] pb-4 mb-12 text-xs font-tech text-zinc-400">
           <div className="flex items-center gap-3">
-            <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#d4ff00] shadow-[0_0_8px_#d4ff00]" />
+            <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#c4ff00] shadow-[0_0_12px_#c4ff00]" />
             <span className="tracking-widest uppercase">
               HOMEGUARD // VISION RUNTIME 2.5
             </span>
           </div>
           <div className="hidden sm:flex items-center gap-6 text-[11px] text-zinc-400">
             <span>RESIDENTIAL CV SCREENING</span>
-            <span className="text-zinc-500">|</span>
+            <span className="text-zinc-600">|</span>
             <span>MODEL: GEMINI-2.5-VISION</span>
-            <span className="text-zinc-500">|</span>
+            <span className="text-zinc-600">|</span>
             <span className="text-zinc-300 font-medium">LATENCY: 1.2s</span>
           </div>
         </div>
 
         {/* Big Bold Minimal Typography Heading */}
-        <div className="mb-10 sm:mb-12 max-w-4xl">
-          <div className="text-[11px] font-tech text-[#d4ff00] tracking-widest uppercase mb-3 flex items-center gap-2">
+        <div className="mb-16 max-w-5xl">
+          <div className="text-[11px] font-tech text-[#c4ff00] tracking-widest uppercase mb-4 flex items-center gap-2">
             <span>[ SYSTEM INITIATED ]</span>
-            <span className="w-8 h-[1px] bg-[#d4ff00]/40" />
+            <span className="w-8 h-[1px] bg-[#c4ff00]/30" />
             <span>CONTINUOUS HAZARD IDENTIFICATION</span>
           </div>
 
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tighter text-[#f4f4f5] leading-[0.95] mb-5">
+          <h1 className="text-5xl sm:text-7xl lg:text-8xl font-display font-extrabold tracking-tight text-[#fafafa] leading-[0.92] mb-6">
             YOUR SPACE.
             <br />
-            <span className="text-zinc-400">UNDERSTOOD.</span>
+            <span className="text-zinc-500">UNDERSTOOD.</span>
           </h1>
 
-          <p className="text-base sm:text-lg text-zinc-400 font-normal leading-relaxed max-w-2xl">
+          <p className="text-base sm:text-lg text-zinc-400 font-normal leading-relaxed max-w-2xl mb-10">
             Autonomous computer vision designed for residential safety.
             Screening visible trip lines, overloaded conductors, and thermal risks
             before they turn into preventable incidents.
           </p>
 
           {/* Minimal Action Triggers */}
-          <div className="flex flex-wrap items-center gap-3.5 mt-7">
+          <div className="flex flex-wrap items-center gap-4">
             <button
               id="hero-scan-btn"
               type="button"
               onClick={() => onNavigate('/scan')}
-              className="px-6 py-3 rounded-xl bg-[#d4ff00] hover:bg-[#bbf000] text-[#07080a] font-bold text-xs tracking-wider uppercase transition shadow-[0_0_24px_rgba(212,255,0,0.22)] flex items-center gap-2.5 cursor-pointer"
+              className="px-7 py-3.5 rounded-xl bg-[#c4ff00] hover:bg-[#b0e600] text-[#0a0a0b] font-bold text-xs tracking-wider uppercase transition shadow-[0_0_32px_rgba(196,255,0,0.25)] flex items-center gap-2.5 cursor-pointer"
             >
               <Camera size={15} strokeWidth={2.5} />
               <span>Scan Your Space</span>
@@ -186,20 +186,20 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               id="hero-interactive-demo-btn"
               type="button"
               onClick={onLaunchDemo}
-              className="px-5 py-3 rounded-xl bg-[#111317] hover:bg-[#181b22] text-[#f4f4f5] border border-white/[0.08] hover:border-white/20 font-medium text-xs tracking-wider uppercase transition flex items-center gap-2 cursor-pointer"
+              className="px-6 py-3.5 rounded-xl bg-[#111113] hover:bg-[#18181b] text-[#fafafa] border border-white/[0.08] hover:border-white/12 font-medium text-xs tracking-wider uppercase transition flex items-center gap-2 cursor-pointer"
             >
-              <Terminal size={14} className="text-[#d4ff00]" />
+              <Terminal size={14} className="text-[#c4ff00]" />
               <span>Launch Live Inspection</span>
             </button>
 
             {/* Quick Room Preset Switchers */}
-            <div className="hidden lg:flex items-center ml-auto bg-[#0e1014] p-1 rounded-xl border border-white/[0.06] text-[11px] font-tech text-zinc-400">
+            <div className="hidden lg:flex items-center ml-auto bg-[#111113] p-1.5 rounded-xl border border-white/[0.05] text-[11px] font-tech text-zinc-400">
               <span className="px-2 text-zinc-400 uppercase text-[10px]">Viewport:</span>
               <button
                 type="button"
                 onClick={() => setActiveTab('living')}
-                className={`px-2.5 py-1 rounded-lg transition cursor-pointer ${
-                  activeTab === 'living' ? 'bg-[#181b22] text-white border border-white/10' : 'hover:text-white'
+                className={`px-3 py-1.5 rounded-lg transition cursor-pointer ${
+                  activeTab === 'living' ? 'bg-[#18181b] text-white border border-white/8' : 'hover:text-white'
                 }`}
               >
                 01 Living
@@ -207,8 +207,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               <button
                 type="button"
                 onClick={() => setActiveTab('workspace')}
-                className={`px-2.5 py-1 rounded-lg transition cursor-pointer ${
-                  activeTab === 'workspace' ? 'bg-[#181b22] text-white border border-white/10' : 'hover:text-white'
+                className={`px-3 py-1.5 rounded-lg transition cursor-pointer ${
+                  activeTab === 'workspace' ? 'bg-[#18181b] text-white border border-white/8' : 'hover:text-white'
                 }`}
               >
                 02 Office
@@ -216,8 +216,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               <button
                 type="button"
                 onClick={() => setActiveTab('kitchen')}
-                className={`px-2.5 py-1 rounded-lg transition cursor-pointer ${
-                  activeTab === 'kitchen' ? 'bg-[#181b22] text-white border border-white/10' : 'hover:text-white'
+                className={`px-3 py-1.5 rounded-lg transition cursor-pointer ${
+                  activeTab === 'kitchen' ? 'bg-[#18181b] text-white border border-white/8' : 'hover:text-white'
                 }`}
               >
                 03 Kitchen
@@ -229,13 +229,13 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         {/* 65% VISUAL / 35% INFORMATION HERO WORKSPACE */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
           {/* LEFT: 65% Cinematic Viewport */}
-          <div className="lg:col-span-8 bg-[#0b0d11] rounded-2xl border border-white/[0.08] overflow-hidden relative shadow-2xl flex flex-col justify-between group">
+          <div className="lg:col-span-8 bg-[#111113] rounded-2xl border border-white/[0.06] overflow-hidden relative shadow-2xl flex flex-col justify-between group">
             {/* Viewport Header Bar */}
-            <div className="p-3.5 bg-[#07080a]/90 backdrop-blur-md border-b border-white/[0.06] flex items-center justify-between text-xs font-tech z-20">
+            <div className="p-4 bg-[#0a0a0b]/95 backdrop-blur-md border-b border-white/[0.05] flex items-center justify-between text-xs font-tech z-20">
               <div className="flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
                 <span className="text-zinc-200 font-medium">LIVE VISION STREAM</span>
-                <span className="text-zinc-400 font-normal">//</span>
+                <span className="text-zinc-500 font-normal">//</span>
                 <span className="text-zinc-400 hidden sm:inline">{currentHero.code}</span>
               </div>
 
@@ -243,17 +243,17 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 <button
                   type="button"
                   onClick={() => setShowScanLine(!showScanLine)}
-                  className={`px-2 py-0.5 rounded border text-[10px] transition cursor-pointer ${
+                  className={`px-2.5 py-1 rounded border text-[10px] transition cursor-pointer ${
                     showScanLine
-                      ? 'border-[#d4ff00]/40 text-[#d4ff00] bg-[#d4ff00]/10'
-                      : 'border-white/10 text-zinc-400'
+                      ? 'border-[#c4ff00]/30 text-[#c4ff00] bg-[#c4ff00]/8'
+                      : 'border-white/8 text-zinc-400'
                   }`}
                 >
                   {showScanLine ? 'SCANNER: ACTIVE' : 'SCANNER: PAUSED'}
                 </button>
 
                 <div className="flex items-center gap-1 text-zinc-400">
-                  <Activity size={12} className="text-[#d4ff00]" />
+                  <Activity size={12} className="text-[#c4ff00]" />
                   <span>60 FPS</span>
                 </div>
               </div>
@@ -291,22 +291,22 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 const isLow = det.severity === 'low';
 
                 const borderCol = isHigh
-                  ? 'border-red-500/80'
+                  ? 'border-red-500/70'
                   : isMed
-                  ? 'border-amber-400/80'
-                  : 'border-[#d4ff00]/80';
+                  ? 'border-amber-400/70'
+                  : 'border-[#c4ff00]/70';
 
                 const bgCol = isHigh
-                  ? 'bg-red-500/[0.08]'
+                  ? 'bg-red-500/[0.06]'
                   : isMed
-                  ? 'bg-amber-400/[0.08]'
-                  : 'bg-[#d4ff00]/[0.06]';
+                  ? 'bg-amber-400/[0.06]'
+                  : 'bg-[#c4ff00]/[0.04]';
 
                 const textCol = isHigh
                   ? 'text-red-400'
                   : isMed
                   ? 'text-amber-400'
-                  : 'text-[#d4ff00]';
+                  : 'text-[#c4ff00]';
 
                 return (
                   <div
@@ -330,15 +330,15 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                     <div className={`absolute -bottom-1 -right-1 w-2 h-2 border-b-2 border-r-2 ${borderCol}`} />
 
                     {/* Top Marker Badge */}
-                    <div className="absolute -top-5 left-0 flex items-center gap-1 bg-[#07080a]/90 border border-white/10 px-1.5 py-0.5 rounded text-[9px] font-tech text-white whitespace-nowrap shadow-md">
-                      <span className={`w-1.5 h-1.5 rounded-full ${isHigh ? 'bg-red-500' : isMed ? 'bg-amber-400' : 'bg-[#d4ff00]'} animate-pulse-dot`} />
+                    <div className="absolute -top-5 left-0 flex items-center gap-1 bg-[#0a0a0b]/95 border border-white/8 px-2 py-0.5 rounded text-[9px] font-tech text-white whitespace-nowrap shadow-md">
+                      <span className={`w-1.5 h-1.5 rounded-full ${isHigh ? 'bg-red-500' : isMed ? 'bg-amber-400' : 'bg-[#c4ff00]'} animate-pulse-dot`} />
                       <span className="font-bold">{det.number}</span>
-                      <span className="text-zinc-400">//</span>
+                      <span className="text-zinc-500">//</span>
                       <span className={textCol}>{det.label}</span>
                     </div>
 
                     {/* Bottom Fine Coordinates */}
-                    <div className="absolute -bottom-4 right-0 text-[8px] font-tech text-zinc-400 bg-black/70 px-1 rounded pointer-events-none">
+                    <div className="absolute -bottom-4 right-0 text-[8px] font-tech text-zinc-500 bg-black/80 px-1.5 rounded pointer-events-none">
                       {det.point}
                     </div>
                   </div>
@@ -346,9 +346,9 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               })}
 
               {/* Bottom Subtle Overlay Telemetry */}
-              <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between text-[10px] font-tech text-zinc-400 bg-[#07080a]/75 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/[0.05] pointer-events-none">
+              <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between text-[10px] font-tech text-zinc-400 bg-[#0a0a0b]/80 backdrop-blur-md px-4 py-2 rounded-lg border border-white/[0.04] pointer-events-none">
                 <div className="flex items-center gap-2">
-                  <Crosshair size={11} className="text-[#d4ff00]" />
+                  <Crosshair size={11} className="text-[#c4ff00]" />
                   <span>{currentHero.name}</span>
                 </div>
                 <div className="flex items-center gap-4">
@@ -360,20 +360,20 @@ export const LandingPage: React.FC<LandingPageProps> = ({
           </div>
 
           {/* RIGHT: 35% Floating Inspection Module */}
-          <div className="lg:col-span-4 bg-[#0e1014] rounded-2xl border border-white/[0.08] p-5 sm:p-6 flex flex-col justify-between shadow-xl">
+          <div className="lg:col-span-4 bg-[#111113] rounded-2xl border border-white/[0.06] p-6 flex flex-col justify-between shadow-xl">
             {/* Module Top Header */}
             <div>
-              <div className="flex items-center justify-between border-b border-white/[0.06] pb-3 mb-4">
+              <div className="flex items-center justify-between border-b border-white/[0.05] pb-3 mb-5">
                 <span className="text-[11px] font-tech text-zinc-400 tracking-wider uppercase">
                   INSPECTION MODULE
                 </span>
-                <span className="text-[10px] font-tech px-2 py-0.5 rounded bg-[#181b22] text-[#d4ff00] border border-[#d4ff00]/20">
+                <span className="text-[10px] font-tech px-2.5 py-1 rounded bg-[#18181b] text-[#c4ff00] border border-[#c4ff00]/15">
                   REAL-TIME TELEMETRY
                 </span>
               </div>
 
               {/* Room Safety Index Metric */}
-              <div className="mb-6 p-4 rounded-xl bg-[#07080a] border border-white/[0.06]">
+              <div className="mb-7 p-5 rounded-xl bg-[#0a0a0b] border border-white/[0.05]">
                 <div className="flex items-baseline justify-between mb-2">
                   <span className="text-xs font-medium text-zinc-400 uppercase tracking-wider font-tech">
                     Room Safety Index
@@ -382,24 +382,24 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 </div>
 
                 <div className="flex items-baseline gap-2 mb-3">
-                  <span className="text-4xl sm:text-5xl font-extrabold tracking-tight text-white font-tech">
+                  <span className="text-5xl font-extrabold tracking-tight text-white font-tech">
                     {currentHero.score}
                   </span>
                   <span className="text-sm font-tech text-zinc-400">/ 100</span>
                 </div>
 
                 {/* Minimalist Linear Meter */}
-                <div className="w-full h-1.5 bg-[#181b22] rounded-full overflow-hidden">
+                <div className="w-full h-1.5 bg-[#18181b] rounded-full overflow-hidden">
                   <div
                     style={{ width: `${currentHero.score}%` }}
-                    className="h-full bg-gradient-to-r from-amber-500 to-[#d4ff00] rounded-full transition-all duration-500"
+                    className="h-full bg-gradient-to-r from-amber-500 to-[#c4ff00] rounded-full transition-all duration-500"
                   />
                 </div>
               </div>
 
               {/* Detected Hazards Inspection Queue */}
               <div className="space-y-2 mb-6">
-                <span className="text-[11px] font-tech text-zinc-400 uppercase tracking-wider block mb-2">
+                <span className="text-[11px] font-tech text-zinc-400 uppercase tracking-wider block mb-3">
                   Active Bounding Queue ({currentHero.detections.length}):
                 </span>
 
@@ -413,15 +413,15 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                       key={det.id}
                       onMouseEnter={() => setHoveredDetection(det.id)}
                       onMouseLeave={() => setHoveredDetection(null)}
-                      className={`p-3 rounded-xl border transition-all cursor-pointer ${
+                      className={`p-3.5 rounded-xl border transition-all cursor-pointer ${
                         isHovered
-                          ? 'bg-[#181b22] border-white/20'
-                          : 'bg-[#07080a]/60 border-white/[0.04] hover:border-white/10'
+                          ? 'bg-[#18181b] border-white/12'
+                          : 'bg-[#0a0a0b]/50 border-white/[0.03] hover:border-white/6'
                       }`}
                     >
-                      <div className="flex items-center justify-between mb-1">
+                      <div className="flex items-center justify-between mb-1.5">
                         <div className="flex items-center gap-2">
-                          <span className="w-4 h-4 rounded bg-[#181b22] border border-white/10 flex items-center justify-center text-[9px] font-tech font-bold text-white">
+                          <span className="w-5 h-5 rounded bg-[#18181b] border border-white/8 flex items-center justify-center text-[9px] font-tech font-bold text-white">
                             {det.number}
                           </span>
                           <span className="text-xs font-semibold text-zinc-200">
@@ -429,18 +429,18 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                           </span>
                         </div>
                         <span
-                          className={`text-[9px] font-tech uppercase px-1.5 py-0.5 rounded ${
+                          className={`text-[9px] font-tech uppercase px-2 py-0.5 rounded ${
                             isHigh
-                              ? 'bg-red-500/10 text-red-400 border border-red-500/20'
+                              ? 'bg-red-500/8 text-red-400 border border-red-500/15'
                               : isMed
-                              ? 'bg-amber-400/10 text-amber-400 border border-amber-400/20'
-                              : 'bg-[#d4ff00]/10 text-[#d4ff00] border border-[#d4ff00]/20'
+                              ? 'bg-amber-400/8 text-amber-400 border border-amber-400/15'
+                              : 'bg-[#c4ff00]/8 text-[#c4ff00] border border-[#c4ff00]/15'
                           }`}
                         >
                           {det.severity}
                         </span>
                       </div>
-                      <p className="text-[11px] text-zinc-400 leading-snug pl-6">
+                      <p className="text-[11px] text-zinc-400 leading-snug pl-7">
                         {det.sub}
                       </p>
                     </div>
@@ -450,11 +450,11 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             </div>
 
             {/* Module Bottom Actions */}
-            <div className="pt-4 border-t border-white/[0.06] space-y-2">
+            <div className="pt-5 border-t border-white/[0.05] space-y-2">
               <button
                 type="button"
                 onClick={onLaunchDemo}
-                className="w-full py-2.5 rounded-xl bg-white/[0.06] hover:bg-white/[0.1] text-white text-xs font-semibold tracking-wide border border-white/10 transition flex items-center justify-center gap-2 cursor-pointer"
+                className="w-full py-3 rounded-xl bg-white/[0.05] hover:bg-white/[0.08] text-white text-xs font-semibold tracking-wide border border-white/8 transition flex items-center justify-center gap-2 cursor-pointer"
               >
                 <span>Full Diagnosis & Corrective Actions</span>
                 <ArrowRight size={13} />
@@ -464,63 +464,63 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         </div>
 
         {/* THREE EDITORIAL PRINCIPLES (Clean, Flat, Refined Spacing) */}
-        <div className="mt-20 pt-12 border-t border-white/[0.07]">
-          <div className="text-[11px] font-tech text-[#d4ff00] tracking-widest uppercase mb-2">
+        <div className="mt-24 pt-16 border-t border-white/[0.05]">
+          <div className="text-[11px] font-tech text-[#c4ff00] tracking-widest uppercase mb-3">
             [ ARCHITECTURE & PROTOCOL ]
           </div>
-          <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white mb-10">
+          <h2 className="text-3xl sm:text-4xl font-display font-extrabold tracking-tight text-white mb-12">
             ENGINEERED TO REMOVE THE GUESSWORK.
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Principle 01 */}
-            <div className="p-6 rounded-2xl bg-[#0e1014] border border-white/[0.07] flex flex-col justify-between">
+            <div className="p-7 rounded-2xl bg-[#111113] border border-white/[0.05] flex flex-col justify-between">
               <div>
-                <span className="text-xs font-tech text-[#d4ff00] block mb-3 font-semibold">
+                <span className="text-xs font-tech text-[#c4ff00] block mb-4 font-semibold">
                   01 // CAPTURE
                 </span>
-                <h3 className="text-lg font-bold text-white mb-2">
+                <h3 className="text-lg font-bold text-white mb-3">
                   Instant Computer Vision Ingestion
                 </h3>
-                <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
+                <p className="text-sm text-zinc-400 leading-relaxed">
                   Capture directly through your webcam or mobile browser. Zero specialized LiDAR hardware or physical sensors required.
                 </p>
               </div>
               <div className="mt-6 pt-4 border-t border-white/[0.04] flex items-center gap-2 text-[11px] font-tech text-zinc-400">
-                <Crosshair size={12} className="text-[#d4ff00]" />
+                <Crosshair size={12} className="text-[#c4ff00]" />
                 <span>USER & REAR FACING PIPELINES</span>
               </div>
             </div>
 
             {/* Principle 02 */}
-            <div className="p-6 rounded-2xl bg-[#0e1014] border border-white/[0.07] flex flex-col justify-between">
+            <div className="p-7 rounded-2xl bg-[#111113] border border-white/[0.05] flex flex-col justify-between">
               <div>
-                <span className="text-xs font-tech text-[#d4ff00] block mb-3 font-semibold">
+                <span className="text-xs font-tech text-[#c4ff00] block mb-4 font-semibold">
                   02 // ISOLATE
                 </span>
-                <h3 className="text-lg font-bold text-white mb-2">
+                <h3 className="text-lg font-bold text-white mb-3">
                   Subtle Spatial Bounding & Risk Triage
                 </h3>
-                <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
+                <p className="text-sm text-zinc-400 leading-relaxed">
                   Every detected item is contextualized with geometric bounding brackets, severity ratings (High, Medium, Low), and clear rationale.
                 </p>
               </div>
               <div className="mt-6 pt-4 border-t border-white/[0.04] flex items-center gap-2 text-[11px] font-tech text-zinc-400">
-                <Sliders size={12} className="text-[#d4ff00]" />
+                <Sliders size={12} className="text-[#c4ff00]" />
                 <span>MULTIMODAL RISK HEURISTICS</span>
               </div>
             </div>
 
             {/* Principle 03 */}
-            <div className="p-6 rounded-2xl bg-[#0e1014] border border-white/[0.07] flex flex-col justify-between">
+            <div className="p-7 rounded-2xl bg-[#111113] border border-white/[0.05] flex flex-col justify-between">
               <div>
-                <span className="text-xs font-tech text-[#d4ff00] block mb-3 font-semibold">
+                <span className="text-xs font-tech text-[#c4ff00] block mb-4 font-semibold">
                   03 // VERIFY
                 </span>
-                <h3 className="text-lg font-bold text-white mb-2">
+                <h3 className="text-lg font-bold text-white mb-3">
                   Side-by-Side Resolution Verification
                 </h3>
-                <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
+                <p className="text-sm text-zinc-400 leading-relaxed">
                   Execute the recommended corrective actions and capture a follow-up image to verify safety improvements and log before/after proof.
                 </p>
               </div>
@@ -533,27 +533,27 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         </div>
 
         {/* DOMAIN COVERAGE STRIP (Editorial Horizontal Row) */}
-        <div className="mt-16 p-6 sm:p-8 rounded-2xl bg-[#0b0d11] border border-white/[0.07]">
-          <div className="flex flex-col sm:flex-row sm:items-baseline justify-between mb-6 pb-4 border-b border-white/[0.06]">
+        <div className="mt-20 p-8 rounded-2xl bg-[#111113] border border-white/[0.05]">
+          <div className="flex flex-col sm:flex-row sm:items-baseline justify-between mb-8 pb-5 border-b border-white/[0.05]">
             <div>
-              <span className="text-[10px] font-tech text-[#d4ff00] tracking-widest uppercase">
+              <span className="text-[10px] font-tech text-[#c4ff00] tracking-widest uppercase">
                 INSPECTION DOMAINS
               </span>
-              <h3 className="text-lg sm:text-xl font-bold text-white mt-1">
+              <h3 className="text-xl sm:text-2xl font-bold text-white mt-2">
                 Visible Household Vulnerabilities Covered
               </h3>
             </div>
-            <span className="text-xs font-tech text-zinc-400 mt-2 sm:mt-0">
+            <span className="text-xs font-tech text-zinc-400 mt-3 sm:mt-0">
               4 CORE SAFETY CATEGORIES
             </span>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="p-4 rounded-xl bg-[#07080a] border border-white/[0.04]">
-              <div className="w-8 h-8 rounded-lg bg-amber-500/10 text-amber-400 border border-amber-500/20 flex items-center justify-center mb-3">
-                <Zap size={16} />
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+            <div className="p-5 rounded-xl bg-[#0a0a0b] border border-white/[0.04]">
+              <div className="w-9 h-9 rounded-lg bg-amber-500/8 text-amber-400 border border-amber-500/15 flex items-center justify-center mb-4">
+                <Zap size={17} />
               </div>
-              <span className="text-xs font-bold text-white block mb-1">
+              <span className="text-xs font-bold text-white block mb-2">
                 Electrical Safety
               </span>
               <p className="text-[11px] text-zinc-400 leading-relaxed">
@@ -561,11 +561,11 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               </p>
             </div>
 
-            <div className="p-4 rounded-xl bg-[#07080a] border border-white/[0.04]">
-              <div className="w-8 h-8 rounded-lg bg-red-500/10 text-red-400 border border-red-500/20 flex items-center justify-center mb-3">
-                <Flame size={16} />
+            <div className="p-5 rounded-xl bg-[#0a0a0b] border border-white/[0.04]">
+              <div className="w-9 h-9 rounded-lg bg-red-500/8 text-red-400 border border-red-500/15 flex items-center justify-center mb-4">
+                <Flame size={17} />
               </div>
-              <span className="text-xs font-bold text-white block mb-1">
+              <span className="text-xs font-bold text-white block mb-2">
                 Fire & Thermal
               </span>
               <p className="text-[11px] text-zinc-400 leading-relaxed">
@@ -573,11 +573,11 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               </p>
             </div>
 
-            <div className="p-4 rounded-xl bg-[#07080a] border border-white/[0.04]">
-              <div className="w-8 h-8 rounded-lg bg-[#d4ff00]/10 text-[#d4ff00] border border-[#d4ff00]/20 flex items-center justify-center mb-3">
-                <Footprints size={16} />
+            <div className="p-5 rounded-xl bg-[#0a0a0b] border border-white/[0.04]">
+              <div className="w-9 h-9 rounded-lg bg-[#c4ff00]/8 text-[#c4ff00] border border-[#c4ff00]/15 flex items-center justify-center mb-4">
+                <Footprints size={17} />
               </div>
-              <span className="text-xs font-bold text-white block mb-1">
+              <span className="text-xs font-bold text-white block mb-2">
                 Passage & Trips
               </span>
               <p className="text-[11px] text-zinc-400 leading-relaxed">
@@ -585,11 +585,11 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               </p>
             </div>
 
-            <div className="p-4 rounded-xl bg-[#07080a] border border-white/[0.04]">
-              <div className="w-8 h-8 rounded-lg bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 flex items-center justify-center mb-3">
-                <Layers size={16} />
+            <div className="p-5 rounded-xl bg-[#0a0a0b] border border-white/[0.04]">
+              <div className="w-9 h-9 rounded-lg bg-indigo-500/8 text-indigo-400 border border-indigo-500/15 flex items-center justify-center mb-4">
+                <Layers size={17} />
               </div>
-              <span className="text-xs font-bold text-white block mb-1">
+              <span className="text-xs font-bold text-white block mb-2">
                 Structural Placement
               </span>
               <p className="text-[11px] text-zinc-400 leading-relaxed">
@@ -600,29 +600,29 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         </div>
 
         {/* BOTTOM CALL TO ACTION */}
-        <div className="mt-16 text-center py-12 px-6 rounded-2xl bg-gradient-to-b from-[#0e1014] to-[#07080a] border border-white/[0.08] relative overflow-hidden">
+        <div className="mt-20 text-center py-16 px-6 rounded-2xl bg-gradient-to-b from-[#111113] to-[#0a0a0b] border border-white/[0.05] relative overflow-hidden">
           <div className="max-w-xl mx-auto relative z-10">
-            <span className="text-[11px] font-tech text-[#d4ff00] uppercase tracking-widest block mb-2">
+            <span className="text-[11px] font-tech text-[#c4ff00] uppercase tracking-widest block mb-3">
               READY FOR DEPLOYMENT
             </span>
-            <h3 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight mb-4">
+            <h3 className="text-3xl sm:text-5xl font-display font-extrabold text-white tracking-tight mb-5">
               Begin Visual Inspection
             </h3>
-            <p className="text-xs sm:text-sm text-zinc-400 mb-8 leading-relaxed">
+            <p className="text-sm text-zinc-400 mb-10 leading-relaxed">
               Open your camera or upload any room photo to immediately identify visible household hazards with autonomous precision.
             </p>
-            <div className="flex flex-wrap items-center justify-center gap-3">
+            <div className="flex flex-wrap items-center justify-center gap-4">
               <button
                 type="button"
                 onClick={() => onNavigate('/scan')}
-                className="px-6 py-3 rounded-xl bg-[#d4ff00] hover:bg-[#bbf000] text-[#07080a] font-bold text-xs tracking-wider uppercase transition shadow-[0_0_24px_rgba(212,255,0,0.22)] cursor-pointer"
+                className="px-8 py-4 rounded-xl bg-[#c4ff00] hover:bg-[#b0e600] text-[#0a0a0b] font-bold text-xs tracking-wider uppercase transition shadow-[0_0_32px_rgba(196,255,0,0.25)] cursor-pointer"
               >
                 Scan Now
               </button>
               <button
                 type="button"
                 onClick={onLaunchDemo}
-                className="px-5 py-3 rounded-xl bg-[#181b22] hover:bg-[#232732] text-white border border-white/10 font-medium text-xs tracking-wider uppercase transition cursor-pointer"
+                className="px-7 py-4 rounded-xl bg-[#18181b] hover:bg-[#1f1f23] text-white border border-white/8 font-medium text-xs tracking-wider uppercase transition cursor-pointer"
               >
                 Explore Sample Findings
               </button>
@@ -631,15 +631,15 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         </div>
 
         {/* Footer Technical Bar */}
-        <div className="mt-16 pt-6 border-t border-white/[0.06] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-tech text-zinc-400">
+        <div className="mt-20 pt-8 border-t border-white/[0.05] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-tech text-zinc-400">
           <div>
             <span>HOMEGUARD AI // SAFETY COMPUTER VISION</span>
           </div>
           <div className="flex items-center gap-4 text-[11px]">
             <span>ZERO DATA RESALE</span>
-            <span className="text-zinc-500">•</span>
+            <span className="text-zinc-600">•</span>
             <span>CLIENT-FIRST RUNTIME</span>
-            <span className="text-zinc-500">•</span>
+            <span className="text-zinc-600">•</span>
             <span>ISO RESIDENTIAL GUIDELINES ALIGNED</span>
           </div>
         </div>
