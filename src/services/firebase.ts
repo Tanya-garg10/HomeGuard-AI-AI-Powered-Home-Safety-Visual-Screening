@@ -19,24 +19,77 @@ import {
 } from 'firebase/firestore';
 import { ScanResult } from '../types';
 
-// Firebase config from Vite environment variables (client-side)
-const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || '',
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || '',
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || '',
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || '',
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || '',
-  appId: import.meta.env.VITE_FIREBASE_APP_ID || '',
-  firestoreDatabaseId: import.meta.env.VITE_FIRESTORE_DATABASE_ID || '',
-};
+// Firebase config - will be fetched from server
+let firebaseConfig: any = null;
+let app: any = null;
+let db: any = null;
+let auth: any = null;
+let googleProvider: any = null;
 
-// Initialize Firebase App singleton
-const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+// Fetch Firebase config from server
+async function fetchFirebaseConfig() {
+  try {
+    const response = await fetch('/api/firebase-config');
+    if (!response.ok) {
+      throw new Error('Failed to fetch Firebase config');
+    }
+    firebaseConfig = await response.json();
+    
+    // Initialize Firebase
+    if (!getApps().length) {
+      app = initializeApp(firebaseConfig);
+    } else {
+      app = getApp();
+    }
+    
+    db = getFirestore(app, firebaseConfig.firestoreDatabaseId);
+    auth = getAuth(app);
+    googleProvider = new GoogleAuthProvider();
+    
+    return true;
+  } catch (error) {
+    console.error('Failed to initialize Firebase:', error);
+    return false;
+  }
+}
 
-/* CRITICAL: The app will break without specifying firestoreDatabaseId */
-export const db = getFirestore(app, firebaseConfig.firestoreDatabaseId);
-export const auth = getAuth(app);
-export const googleProvider = new GoogleAuthProvider();
+// Initialize Firebase on load
+let initPromise: Promise<boolean> | null = null;
+export function initializeFirebase() {
+  if (!initPromise) {
+    initPromise = fetchFirebaseConfig();
+  }
+  return initPromise;
+}
+
+// Get Firebase instances (will be null until initialized)
+export function getFirebaseApp() {
+  if (!app) {
+    console.warn('Firebase not initialized. Call initializeFirebase() first.');
+  }
+  return app;
+}
+
+export function getFirebaseDB() {
+  if (!db) {
+    console.warn('Firebase not initialized. Call initializeFirebase() first.');
+  }
+  return db;
+}
+
+export function getFirebaseAuth() {
+  if (!auth) {
+    console.warn('Firebase not initialized. Call initializeFirebase() first.');
+  }
+  return auth;
+}
+
+export function getFirebaseProvider() {
+  if (!googleProvider) {
+    console.warn('Firebase not initialized. Call initializeFirebase() first.');
+  }
+  return googleProvider;
+}
 
 export enum OperationType {
   CREATE = 'create',
@@ -69,16 +122,17 @@ export function handleFirestoreError(
   operationType: OperationType,
   path: string | null
 ): never {
+  const authInstance = getFirebaseAuth();
   const errInfo: FirestoreErrorInfo = {
     error: error instanceof Error ? error.message : String(error),
     authInfo: {
-      userId: auth.currentUser?.uid,
-      email: auth.currentUser?.email,
-      emailVerified: auth.currentUser?.emailVerified,
-      isAnonymous: auth.currentUser?.isAnonymous,
-      tenantId: auth.currentUser?.tenantId,
+      userId: authInstance?.currentUser?.uid,
+      email: authInstance?.currentUser?.email,
+      emailVerified: authInstance?.currentUser?.emailVerified,
+      isAnonymous: authInstance?.currentUser?.isAnonymous,
+      tenantId: authInstance?.currentUser?.tenantId,
       providerInfo:
-        auth.currentUser?.providerData?.map((provider) => ({
+        authInstance?.currentUser?.providerData?.map((provider: any) => ({
           providerId: provider.providerId,
           email: provider.email,
         })) || [],
@@ -92,8 +146,13 @@ export function handleFirestoreError(
 
 // Test connection on boot
 export async function testFirestoreConnection(): Promise<boolean> {
+  const dbInstance = getFirebaseDB();
+  if (!dbInstance) {
+    console.warn('Firebase not initialized, skipping connection test');
+    return false;
+  }
   try {
-    await getDocFromServer(doc(db, 'test', 'connection'));
+    await getDocFromServer(doc(dbInstance, 'test', 'connection'));
     console.log('Firestore connection verified successfully.');
     return true;
   } catch (error) {
@@ -108,8 +167,14 @@ export async function testFirestoreConnection(): Promise<boolean> {
 
 // Auth helpers
 export async function signInWithGoogle(): Promise<User | null> {
+  const authInstance = getFirebaseAuth();
+  const providerInstance = getFirebaseProvider();
+  if (!authInstance || !providerInstance) {
+    console.error('Firebase not initialized');
+    return null;
+  }
   try {
-    const result = await signInWithPopup(auth, googleProvider);
+    const result = await signInWithPopup(authInstance, providerInstance);
     return result.user;
   } catch (err) {
     console.error('Google Sign-In Error:', err);
@@ -118,15 +183,25 @@ export async function signInWithGoogle(): Promise<User | null> {
 }
 
 export async function logOut(): Promise<void> {
-  await signOut(auth);
+  const authInstance = getFirebaseAuth();
+  if (!authInstance) {
+    console.error('Firebase not initialized');
+    return;
+  }
+  await signOut(authInstance);
 }
 
 // Firestore CRUD operations for Scans
 const SCANS_COLLECTION = 'scans';
 
 export async function fetchScansFromFirestore(): Promise<ScanResult[]> {
+  const dbInstance = getFirebaseDB();
+  if (!dbInstance) {
+    console.warn('Firebase not initialized, returning empty array');
+    return [];
+  }
   try {
-    const snapshot = await getDocs(collection(db, SCANS_COLLECTION));
+    const snapshot = await getDocs(collection(dbInstance, SCANS_COLLECTION));
     const items: ScanResult[] = [];
     snapshot.forEach((d) => {
       items.push(d.data() as ScanResult);
@@ -141,6 +216,11 @@ export async function fetchScansFromFirestore(): Promise<ScanResult[]> {
 }
 
 export async function saveScanToFirestore(scan: ScanResult): Promise<void> {
+  const dbInstance = getFirebaseDB();
+  if (!dbInstance) {
+    console.warn('Firebase not initialized, skipping save');
+    return;
+  }
   const path = `${SCANS_COLLECTION}/${scan.id}`;
   try {
     // If imageUrl is huge base64, keep a compact reference or preview to stay within document size limit
@@ -151,16 +231,21 @@ export async function saveScanToFirestore(scan: ScanResult): Promise<void> {
           ? 'https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&w=1200&q=80'
           : scan.imageUrl,
     };
-    await setDoc(doc(db, SCANS_COLLECTION, scan.id), cleanScan);
+    await setDoc(doc(dbInstance, SCANS_COLLECTION, scan.id), cleanScan);
   } catch (error) {
     handleFirestoreError(error, OperationType.WRITE, path);
   }
 }
 
 export async function deleteScanFromFirestore(scanId: string): Promise<void> {
+  const dbInstance = getFirebaseDB();
+  if (!dbInstance) {
+    console.warn('Firebase not initialized, skipping delete');
+    return;
+  }
   const path = `${SCANS_COLLECTION}/${scanId}`;
   try {
-    await deleteDoc(doc(db, SCANS_COLLECTION, scanId));
+    await deleteDoc(doc(dbInstance, SCANS_COLLECTION, scanId));
   } catch (error) {
     handleFirestoreError(error, OperationType.DELETE, path);
   }
@@ -170,8 +255,13 @@ export function subscribeToScans(
   onUpdate: (scans: ScanResult[]) => void,
   onError?: (err: any) => void
 ) {
+  const dbInstance = getFirebaseDB();
+  if (!dbInstance) {
+    console.warn('Firebase not initialized, skipping subscription');
+    return () => {};
+  }
   return onSnapshot(
-    collection(db, SCANS_COLLECTION),
+    collection(dbInstance, SCANS_COLLECTION),
     (snapshot) => {
       const items: ScanResult[] = [];
       snapshot.forEach((d) => {

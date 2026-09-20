@@ -29,6 +29,27 @@ app.get('/api/health', (_req: Request, res: Response) => {
   });
 });
 
+// Firebase config endpoint (for client-side)
+app.get('/api/firebase-config', (_req: Request, res: Response) => {
+  const firebaseConfig = {
+    apiKey: process.env.VITE_FIREBASE_API_KEY || '',
+    authDomain: process.env.VITE_FIREBASE_AUTH_DOMAIN || '',
+    projectId: process.env.VITE_FIREBASE_PROJECT_ID || '',
+    storageBucket: process.env.VITE_FIREBASE_STORAGE_BUCKET || '',
+    messagingSenderId: process.env.VITE_FIREBASE_MESSAGING_SENDER_ID || '',
+    appId: process.env.VITE_FIREBASE_APP_ID || '',
+    firestoreDatabaseId: process.env.VITE_FIRESTORE_DATABASE_ID || '',
+  };
+  
+  // Only return config if it's properly set
+  if (!firebaseConfig.apiKey || !firebaseConfig.projectId || !firebaseConfig.appId) {
+    res.status(500).json({ error: 'Firebase configuration not set' });
+    return;
+  }
+  
+  res.json(firebaseConfig);
+});
+
 // Helper: generate fallback screening result if API key is not present or error occurs
 function generateFallbackAnalysis(roomHint?: string) {
   const roomName = roomHint || 'Living Area';
