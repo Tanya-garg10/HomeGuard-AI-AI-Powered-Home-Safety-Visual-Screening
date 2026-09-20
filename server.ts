@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express';
 import path from 'path';
 import multer from 'multer';
 import { GoogleGenAI, Type } from '@google/genai';
+import OpenAI from 'openai';
 import { createServer as createViteServer } from 'vite';
 
 const app = express();
@@ -22,7 +23,8 @@ app.get('/api/health', (_req: Request, res: Response) => {
   res.json({
     status: 'ok',
     service: 'HomeGuard AI Vision Engine',
-    hasApiKey: Boolean(process.env.GEMINI_API_KEY),
+    hasGeminiKey: Boolean(process.env.GEMINI_API_KEY),
+    hasOpenAIKey: Boolean(process.env.OPENAI_API_KEY),
     timestamp: new Date().toISOString(),
   });
 });
@@ -128,19 +130,116 @@ app.post(
         return;
       }
 
-      const apiKey = process.env.GEMINI_API_KEY;
+      const geminiKey = process.env.GEMINI_API_KEY;
+      const openaiKey = process.env.OPENAI_API_KEY;
 
-      // If no Gemini API key configured, provide structured simulated fallback
-      if (!apiKey) {
-        console.warn('GEMINI_API_KEY is not set. Returning high-fidelity fallback screening.');
+      // If no API keys configured, provide structured simulated fallback
+      if (!geminiKey && !openaiKey) {
+        console.warn('No API keys configured. Returning high-fidelity fallback screening.');
         const fallback = generateFallbackAnalysis(roomHint);
         res.json(fallback);
         return;
       }
 
+      // Try OpenAI first if available, otherwise use Gemini
+      if (openaiKey) {
+        try {
+          const openai = new OpenAI({ apiKey: openaiKey });
+          
+          const response = await openai.chat.completions.create({
+            model: 'gpt-4o',
+            messages: [
+              {
+                role: 'system',
+                content: 'You are HomeGuard AI, a visual household safety screening assistant. Analyze only what can reasonably be inferred from the provided image. Identify common visible household safety concerns. Do not invent objects or hazards. For uncertain observations, clearly use cautious language such as "potentially" or "appears to". Return valid JSON only.'
+              },
+              {
+                role: 'user',
+                content: [
+                  {
+                    type: 'text',
+                    text: `Perform a comprehensive visual household safety screening on this room photo.
+Analyze visible hazards across:
+- Electrical Safety (e.g. overloaded power strips, exposed or frayed cables, loose cords in paths)
+- Fire Safety (e.g. combustible items near heaters/cooktops, obstructed emergency exits)
+- Accessibility (e.g. blocked hallways, trip obstructions on floor, door blockages)
+- General Environment (e.g. wet/slick floor reflections, unstable high stacking, poor visibility)
+
+Calculate an overall safety score from 0 to 100 (where 100 is pristine visual safety, 80-90 is minor advisories, 60-79 is moderate issues, below 60 needs immediate attention).
+Also give category scores (0-100) for electrical, fire, accessibility, and environment.
+
+Return JSON in this exact structure:
+{
+  "overallScore": 82,
+  "summary": "3 potential visible safety concerns identified.",
+  "categories": {
+    "electrical": 70,
+    "fire": 90,
+    "accessibility": 80,
+    "environment": 85
+  },
+  "hazards": [
+    {
+      "id": "hazard-1",
+      "title": "Potential electrical overload",
+      "category": "Electrical Safety",
+      "severity": "high",
+      "confidence": 0.87,
+      "description": "Multiple devices appear connected to the same power strip.",
+      "whyItMatters": "A heavily loaded power strip may increase overheating or electrical risk.",
+      "recommendation": "Disconnect unnecessary devices and inspect the outlet and cables.",
+      "location": {
+        "x": 62,
+        "y": 68,
+        "width": 18,
+        "height": 12
+      }
+    }
+  ]
+}`
+                  },
+                  {
+                    type: 'image_url',
+                    image_url: {
+                      url: `data:${mimeType};base64,${imageBase64}`
+                    }
+                  }
+                ]
+              }
+            ],
+            response_format: { type: 'json_object' }
+          });
+
+          const responseText = response.choices[0]?.message?.content || '';
+          const parsed = JSON.parse(responseText.trim());
+          
+          // Ensure hazard ids are unique and clean
+          if (Array.isArray(parsed.hazards)) {
+            parsed.hazards = parsed.hazards.map((h: any, idx: number) => ({
+              ...h,
+              id: h.id || `hazard-${Date.now()}-${idx + 1}`,
+              severity: ['high', 'medium', 'low'].includes(h.severity?.toLowerCase())
+                ? h.severity.toLowerCase()
+                : 'medium',
+              location: {
+                x: Math.max(0, Math.min(95, Number(h.location?.x) || 50)),
+                y: Math.max(0, Math.min(95, Number(h.location?.y) || 50)),
+                width: Math.max(8, Math.min(50, Number(h.location?.width) || 15)),
+                height: Math.max(8, Math.min(50, Number(h.location?.height) || 15)),
+              },
+            }));
+          }
+          res.json(parsed);
+          return;
+        } catch (openaiError) {
+          console.error('OpenAI API error, falling back to Gemini:', openaiError);
+          // Fall through to Gemini if OpenAI fails
+        }
+      }
+
       // Initialize Google GenAI
       const ai = new GoogleGenAI({
-        apiKey,
+        apiKey: geminiKey,
         httpOptions: {
           headers: {
             'User-Agent': 'aistudio-build',

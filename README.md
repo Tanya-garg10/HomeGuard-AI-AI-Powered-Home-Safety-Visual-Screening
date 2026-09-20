@@ -83,7 +83,50 @@ npm run build
 npm run start
 ```
 
-## 📱 Usage
+## � Deployment
+
+### Deploy on Render
+
+1. **Push your code to GitHub** (if not already done)
+2. **Create a new Web Service on Render**:
+   - Go to [dashboard.render.com](https://dashboard.render.com)
+   - Click "New +" → "Web Service"
+   - Connect your GitHub repository
+   - Select the `homeguard ai` repository
+
+3. **Configure the service**:
+   - **Name**: homeguard-ai
+   - **Environment**: Node
+   - **Build Command**: `npm install && npm run build`
+   - **Start Command**: `npm start`
+
+4. **Add Environment Variables** in Render dashboard:
+   - `GEMINI_API_KEY`: Your Google Gemini API key
+   - `OPENAI_API_KEY`: Your OpenAI API key (optional)
+   - `APP_URL`: Your Render service URL (e.g., `https://homeguard-ai.onrender.com`)
+   - `NODE_ENV`: `production`
+
+5. **Deploy**: Click "Create Web Service"
+
+The `render.yaml` file in the repository will automatically configure most settings.
+
+### Alternative Deployment Options
+
+**Vercel**:
+- Connect your GitHub repository to Vercel
+- Add environment variables in Vercel dashboard
+- Vercel will auto-detect and deploy
+
+**Railway**:
+- Deploy from GitHub
+- Configure environment variables in Railway dashboard
+
+**Cloud Run**:
+```bash
+gcloud run deploy --source .
+```
+
+## �📱 Usage
 
 1. **Upload an Image**: Click the upload zone or drag and drop an image of your home
 2. **AI Analysis**: The AI will analyze the image for safety hazards
