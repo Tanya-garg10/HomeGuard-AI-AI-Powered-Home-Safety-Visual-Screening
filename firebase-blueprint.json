@@ -1,0 +1,58 @@
+{
+  "entities": {
+    "Scan": {
+      "title": "Home Safety Scan",
+      "description": "Visual screening record of a home room including hazards and safety scores.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique scan identifier"
+        },
+        "title": {
+          "type": "string",
+          "description": "Scan title",
+          "maxLength": 150
+        },
+        "roomName": {
+          "type": "string",
+          "description": "Name of the scanned room",
+          "maxLength": 80
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "ISO timestamp of scan creation"
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "URL or storage reference to scanned photo",
+          "maxLength": 3000
+        },
+        "overallScore": {
+          "type": "number",
+          "description": "Screening safety score from 0 to 100"
+        },
+        "summary": {
+          "type": "string",
+          "description": "AI-generated visual summary statement",
+          "maxLength": 1000
+        },
+        "categories": {
+          "type": "object",
+          "description": "Categorical safety scores (electrical, fire, accessibility, environment)"
+        },
+        "hazards": {
+          "type": "array",
+          "description": "List of detected visible hazards with coordinates and recommendations"
+        }
+      },
+      "required": ["id", "roomName", "createdAt", "overallScore", "summary"]
+    }
+  },
+  "firestore": {
+    "/scans/{scanId}": {
+      "schema": "Scan",
+      "description": "Collection of visual room safety screening reports."
+    }
+  }
+}

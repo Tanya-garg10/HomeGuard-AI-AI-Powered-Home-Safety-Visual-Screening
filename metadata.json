@@ -1,0 +1,6 @@
+{
+  "name": "HomeGuard AI",
+  "description": "AI-powered visual home safety screening system that analyzes room images, identifies common visible household hazards, highlights locations, and provides practical corrective actions.",
+  "requestFramePermissions": ["camera"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,50 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default-deny all unspecified routes
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isValidScan(data) {
+      return data.id is string && data.id.size() <= 128
+        && data.roomName is string && data.roomName.size() <= 80
+        && data.overallScore is number && data.overallScore >= 0 && data.overallScore <= 100
+        && data.summary is string && data.summary.size() <= 2000
+        && (!('title' in data) || (data.title is string && data.title.size() <= 150))
+        && (!('imageUrl' in data) || (data.imageUrl is string && data.imageUrl.size() <= 3000));
+    }
+
+    // Collection: scans
+    match /scans/{scanId} {
+      allow get: if isValidId(scanId);
+      allow list: if true;
+
+      allow create: if isValidId(scanId)
+        && isValidScan(incoming());
+
+      allow update: if isValidId(scanId)
+        && isValidScan(incoming())
+        && incoming().id == existing().id;
+
+      allow delete: if isValidId(scanId);
+    }
+
+    // Health check test doc
+    match /test/{testId} {
+      allow read: if isValidId(testId);
+    }
+  }
+}
